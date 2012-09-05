@@ -5,20 +5,11 @@
 
 <div class="view">
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('id')); ?>:</b>
-	<?php echo CHtml::link(CHtml::encode($data->id), array('view', 'id'=>$data->id)); ?>
+	<?php echo CHtml::link(CHtml::encode($data->firstName.' '.$data->lastName), array('view', 'id'=>$data->id)); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('departmentId')); ?>:</b>
-	<?php echo CHtml::encode($data->departmentId); ?>
-	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('firstName')); ?>:</b>
-	<?php echo CHtml::encode($data->firstName); ?>
-	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('lastName')); ?>:</b>
-	<?php echo CHtml::encode($data->lastName); ?>
+	<?php echo CHtml::encode($data->department->name); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('email')); ?>:</b>
@@ -27,10 +18,6 @@
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('ext')); ?>:</b>
 	<?php echo CHtml::encode($data->ext); ?>
-	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('hireDate')); ?>:</b>
-	<?php echo CHtml::encode($data->hireDate); ?>
 	<br />
 
 	<?php /*
