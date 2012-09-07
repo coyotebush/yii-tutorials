@@ -89,4 +89,25 @@ class User extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
+
+	/**
+	 * Validates a password entered by the user.
+	 * @return boolean whether the password is correct.
+	 */
+	public function validatePassword($password)
+	{
+		return self::hashPassword($password, $this->salt) === $this->password;
+	}
+
+	/**
+	 * Computes a hashed password.
+	 * @param string $password the password
+	 * @param string $salt password salt
+	 * @return string hashed password
+	 */
+	public static function hashPassword($password, $salt)
+	{
+		return md5($salt . $password);
+	}
+
 }
