@@ -12,6 +12,8 @@
  */
 class Lookup extends CActiveRecord
 {
+	private static $_items = array();
+
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
@@ -92,5 +94,46 @@ class Lookup extends CActiveRecord
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
+	}
+
+	/**
+	 * Get items of a specified type.
+	 * @param string $type item type.
+	 * @return array items of type.
+	 */
+	public static function items($type)
+	{
+		if (!isset(self::$_items[$type]))
+			self::loadItems($type);
+		return self::$_items[$type];
+	}
+
+	/**
+	 * Translate an item type and code to a representation.
+	 * @param string $type item type
+	 * @param integer $code item code
+	 * @return string item representation.
+	 */
+	public static function item($type, $code)
+	{
+		if (!isset(self::$_items[$type]))
+			self::loadItems($type);
+		return isset(self::$_items[$type][$code]) ? self::$_items[$type][$code] : false;
+	}
+
+	/**
+	 * Load from the database items of a specified type.
+	 * @param string $type item type.
+	 */
+	private static function loadItems($type)
+	{
+		self::$_items[$type] = array();
+		$models = self::model()->findAll(array(
+			'condition' => 'type=:type',
+			'params' => array(':type' => $type),
+			'order' => 'position',
+		));
+		foreach ($models as $model)
+			self::$items[$type][$model->code] = $model->name;
 	}
 }

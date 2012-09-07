@@ -87,4 +87,24 @@ class Tag extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
+
+	/**
+	 * Convert a string tag list to an array of tag values.
+	 * @param string $tags string list of tags.
+	 * @return array tag values.
+	 */
+	public static function string2array($tags)
+	{
+		return preg_split('/\s*,\s*/', trim($tags), -1, PREG_SPLIT_NO_EMPTY);
+	}
+
+	/**
+	 * Convert an array of tag values to a string list.
+	 * @param array $tags array of tag values.
+	 * @return string tag list.
+	 */
+	public static function array2string($tags)
+	{
+		return implode(', ', $tags);
+	}
 }
